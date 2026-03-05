@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>De Zero a R$ 5 Milhões | Empire Business</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --empire-bg: #0a0a0b;
+            --empire-surface: #111113;
+            --empire-card: #18181b;
+            --empire-border: #27272a;
+            --empire-text: #fafafa;
+            --empire-gold: #c9a962;
+            --empire-gold-light: #e4d4a5;
+            --gold-gradient: linear-gradient(135deg, #c9a962 0%, #e4d4a5 50%, #c9a962 100%);
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'DM Sans', sans-serif;
+            --slide-padding: clamp(1rem, 3vw, 3rem);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { 
+            scroll-behavior: smooth; 
+            scroll-snap-type: y mandatory; 
+            font-size: 16px;
+            height: 100%;
+        }
+        
+        body { 
+            font-family: var(--font-body); 
+            background: var(--empire-bg); 
+            color: var(--empire-text); 
+            overflow-x: hidden; 
+            line-height: 1.5;
+            height: 100%;
+        }
+
+        /* FULLSCREEN STYLES */
+        :fullscreen .slide { 
+            min-height: 100vh; 
+            padding: 2rem 4rem;
+        }
+        
+        :-webkit-full-screen .slide { 
+            min-height: 100vh;
+            padding: 2rem 4rem;
+        }
+        
+        :-moz-full-screen .slide { 
+            min-height: 100vh;
+            padding: 2rem 4rem;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--empire-bg); }
+        ::-webkit-scrollbar-thumb { background: var(--empire-border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--empire-gold); }
+
+        .text-gold-gradient { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .font-display { font-family: var(--font-display); }
+
+        /* SLIDE - Otimizado para 16:9 */
+        .slide {
+            min-height: 100vh;
+            min-height: 100dvh;
+            height: 100vh;
+            height: 100dvh;
+            padding: var(--slide-padding);
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: var(--empire-bg);
+        }
+
+        .slide-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* ANIMAÇÕES */
+        .reveal { 
+            opacity: 0; 
+            transform: translateY(20px); 
+            transition: opacity 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo); 
+        }
+        .slide.visible .reveal { opacity: 1; transform: translateY(0); }
+        .reveal:nth-child(1) { transition-delay: 0.08s; }
+        .reveal:nth-child(2) { transition-delay: 0.16s; }
+        .reveal:nth-child(3) { transition-delay: 0.24s; }
+        .reveal:nth-child(4) { transition-delay: 0.32s; }
+        .reveal:nth-child(5) { transition-delay: 0.40s; }
+
+        /* FULLSCREEN BUTTON */
+        .fullscreen-btn {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 200;
+            background: rgba(201, 169, 98, 0.1);
+            border: 1px solid rgba(201, 169, 98, 0.3);
+            border-radius: 8px;
+            padding: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .fullscreen-btn:hover {
+            background: rgba(201, 169, 98, 0.2);
+            transform: scale(1.05);
+        }
+        
+        .fullscreen-btn svg {
+            width: 20px;
+            height: 20px;
+            color: var(--empire-gold);
+        }
+
+        /* NAVIGATION */
+        .nav-dots { 
+            position: fixed; 
+            right: 1.5rem; 
+            top: 50%; 
+            transform: translateY(-50%); 
+            z-index: 100; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 0.6rem; 
+        }
+        .nav-dot { 
+            width: 8px; 
+            height: 8px; 
+            border-radius: 50%; 
+            background: var(--empire-border); 
+            border: none; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+        }
+        .nav-dot:hover { background: var(--empire-gold); transform: scale(1.2); }
+        .nav-dot.active { background: var(--empire-gold); box-shadow: 0 0 8px rgba(201, 169, 98, 0.5); }
+        
+        .progress-bar { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            height: 3px; 
+            background: var(--gold-gradient); 
+            z-index: 100; 
+            transition: width 0.3s ease; 
+        }
+        
+        .keyboard-hint { 
+            position: fixed; 
+            bottom: 1.5rem; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            z-index: 100; 
+            color: var(--empire-text); 
+            opacity: 0.3; 
+            font-size: 0.7rem; 
+            letter-spacing: 0.1em; 
+            text-transform: uppercase; 
+        }
+
+        /* SLIDE COVER COM LOGO */
+        .slide-cover {
+            background: 
+                radial-gradient(ellipse at 80% 20%, rgba(201, 169, 98, 0.1) 0%, transparent 40%),
+                radial-gradient(ellipse at 20% 80%, rgba(201, 169, 98, 0.05) 0%, transparent 30%),
+                var(--empire-bg);
+        }
+        
+        .slide-cover::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(201, 169, 98, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201, 169, 98, 0.015) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .cover-logo-img {
+            width: 120px;
+            height: auto;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 4px 20px rgba(201, 169, 98, 0.2));
+        }
+
+        .cover-badge { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+            padding: 0.4rem 1rem; 
+            border: 1px solid rgba(201, 169, 98, 0.3); 
+            border-radius: 100px; 
+            font-size: 0.7rem; 
+            letter-spacing: 0.15em; 
+            text-transform: uppercase; 
+            color: var(--empire-gold); 
+            margin-bottom: 1.5rem; 
+        }
+        .cover-badge::before { 
+            content: ''; 
+            width: 5px; 
+            height: 5px; 
+            background: var(--empire-gold); 
+            border-radius: 50%; 
+            animation: pulse 2s infinite; 
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        
+        .cover-title { 
+            font-size: clamp(2.5rem, 5vw, 4.5rem); 
+            font-weight: 600; 
+            line-height: 1.05; 
+            letter-spacing: -0.02em; 
+            margin-bottom: 1rem; 
+        }
+        .cover-subtitle { 
+            font-size: clamp(1rem, 1.5vw, 1.35rem); 
+            color: var(--empire-text); 
+            opacity: 0.75; 
+            font-weight: 300; 
+            max-width: 550px; 
+            line-height: 1.6; 
+        }
+        .cover-footer { 
+            position: absolute; 
+            bottom: var(--slide-padding); 
+            left: var(--slide-padding); 
+            right: var(--slide-padding); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            font-size: 0.8rem; 
+            color: var(--empire-text); 
+            opacity: 0.4; 
+        }
+        .cover-logo-text { 
+            font-family: var(--font-display); 
+            font-size: 1.1rem; 
+            font-weight: 600; 
+            color: var(--empire-gold); 
+        }
+
+        /* CONTENT STYLES */
+        .section-label { 
+            font-size: 0.7rem; 
+            letter-spacing: 0.2em; 
+            text-transform: uppercase; 
+            color: var(--empire-gold); 
+            margin-bottom: 0.75rem; 
+            display: flex; 
+            align-items: center; 
+            gap: 0.75rem; 
+        }
+        .section-label::after { 
+            content: ''; 
+            flex: 1; 
+            height: 1px; 
+            background: linear-gradient(90deg, var(--empire-gold), transparent); 
+            max-width: 80px; 
+        }
+        .section-title { 
+            font-size: clamp(1.75rem, 3.5vw, 2.75rem); 
+            font-weight: 500; 
+            line-height: 1.15; 
+            margin-bottom: 1.25rem; 
+        }
+        .section-text { 
+            font-size: clamp(0.95rem, 1.2vw, 1.1rem); 
+            line-height: 1.65; 
+            color: var(--empire-text); 
+            opacity: 0.85; 
+            max-width: 700px; 
+        }
+        .section-text p { margin-bottom: 1rem; }
+
+        /* CASE CARDS - Layout otimizado para 9:16 */
+        .case-wrapper {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+        
+        @media (min-width: 900px) {
+            .case-wrapper {
+                grid-template-columns: 280px 1fr;
+            }
+        }
+        
+        .case-image-container {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid var(--empire-gold);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        
+        .case-image-container img {
+            width: 100%;
+            height: auto;
+            max-height: 60vh;
+            object-fit: cover;
+            object-position: top;
+            display: block;
+        }
+        
+        .case-content {
+            background: linear-gradient(135deg, rgba(201, 169, 98, 0.05) 0%, transparent 50%);
+            border: 1px solid rgba(201, 169, 98, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+        }
+        
+        .case-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gold-gradient);
+        }
+
+        .case-header-inline {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .case-avatar-small {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--empire-gold);
+        }
+
+        .case-name { 
+            font-size: 1.3rem; 
+            font-weight: 600; 
+            font-family: var(--font-display); 
+        }
+        .case-role { 
+            font-size: 0.8rem; 
+            color: var(--empire-gold); 
+        }
+        .case-quote { 
+            font-size: 0.95rem; 
+            line-height: 1.6; 
+            color: var(--empire-text); 
+            opacity: 0.9; 
+            font-style: italic; 
+            margin-bottom: 0.75rem;
+        }
+        .case-result { 
+            margin-top: 1rem; 
+            padding-top: 1rem; 
+            border-top: 1px solid var(--empire-border); 
+            display: inline-block;
+            margin-right: 2rem;
+        }
+        .case-stat { 
+            font-size: 1.75rem; 
+            font-weight: 700; 
+            font-family: var(--font-display); 
+            color: var(--empire-gold); 
+            line-height: 1;
+        }
+        .case-stat-label { 
+            font-size: 0.8rem; 
+            color: var(--empire-text); 
+            opacity: 0.7; 
+            margin-top: 0.25rem;
+        }
+
+        /* LOGOS GRID - Tamanho aumentado */
+        .logos-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 1.25rem; 
+            margin-top: 2rem; 
+        }
+        @media (min-width: 640px) { 
+            .logos-grid { 
+                grid-template-columns: repeat(3, 1fr); 
+                gap: 1.5rem;
+            } 
+        }
+        @media (min-width: 900px) { 
+            .logos-grid { 
+                grid-template-columns: repeat(4, 1fr); 
+                gap: 2rem; 
+            } 
+        }
+        .logo-item { 
+            background: rgba(255,255,255,0.03); 
+            border: 1px solid var(--empire-border); 
+            border-radius: 12px; 
+            padding: 2rem 1.5rem; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            transition: all 0.3s ease; 
+            filter: grayscale(20%) brightness(0.95);
+            min-height: 120px;
+        }
+        .logo-item:hover { 
+            filter: grayscale(0%) brightness(1); 
+            transform: scale(1.05); 
+            border-color: rgba(201, 169, 98, 0.4); 
+            box-shadow: 0 15px 40px rgba(201, 169, 98, 0.15);
+        }
+        .logo-item img { 
+            max-width: 100%; 
+            max-height: 85px; 
+            object-fit: contain; 
+        }
+
+        /* TOOL SLIDES */
+        .tool-slide { background: linear-gradient(180deg, var(--empire-bg) 0%, var(--empire-surface) 100%); }
+        
+        .screenshot-container { 
+            margin-top: 1.25rem; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            border: 1px solid var(--empire-border); 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            max-height: 55vh;
+        }
+        .screenshot-container img { 
+            width: 100%; 
+            height: 100%;
+            max-height: 55vh;
+            object-fit: contain;
+            object-position: top;
+            background: var(--empire-card);
+            display: block; 
+        }
+
+        /* OTHER COMPONENTS */
+        .card { 
+            background: var(--empire-card); 
+            border: 1px solid var(--empire-border); 
+            border-radius: 10px; 
+            padding: 1.5rem; 
+        }
+        .card-icon { 
+            width: 44px; 
+            height: 44px; 
+            background: rgba(201, 169, 98, 0.1); 
+            border-radius: 8px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin-bottom: 1rem; 
+        }
+        .card-icon svg { width: 22px; height: 22px; color: var(--empire-gold); }
+
+        .problem-cycle { 
+            display: flex; 
+            flex-direction: row;
+            gap: 0.75rem; 
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        @media (min-width: 768px) { 
+            .problem-cycle { 
+                flex-wrap: nowrap;
+            } 
+        }
+        .problem-item { 
+            background: var(--empire-card); 
+            border: 1px solid var(--empire-border); 
+            border-radius: 8px; 
+            padding: 1rem; 
+            text-align: center; 
+            flex: 1;
+            min-width: 140px;
+        }
+        .problem-arrow { 
+            color: var(--empire-gold); 
+            font-size: 1.25rem; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .problem-item h4 { 
+            font-size: 0.9rem; 
+            font-weight: 600; 
+            margin-bottom: 0.4rem; 
+            color: var(--empire-gold); 
+        }
+        .problem-item p { 
+            font-size: 0.8rem; 
+            color: var(--empire-text); 
+            opacity: 0.7; 
+        }
+
+        .timeline { 
+            position: relative; 
+            padding-left: 1.5rem; 
+        }
+        .timeline::before { 
+            content: ''; 
+            position: absolute; 
+            left: 0; 
+            top: 0; 
+            bottom: 0; 
+            width: 2px; 
+            background: linear-gradient(180deg, var(--empire-gold), transparent); 
+        }
+        .timeline-item { 
+            position: relative; 
+            padding-bottom: 1.25rem; 
+        }
+        .timeline-item::before { 
+            content: ''; 
+            position: absolute; 
+            left: -1.5rem; 
+            top: 0.4rem; 
+            width: 8px; 
+            height: 8px; 
+            background: var(--empire-gold); 
+            border-radius: 50%; 
+            transform: translateX(-3px); 
+        }
+        .timeline-title { 
+            font-size: 1rem; 
+            font-weight: 600; 
+            margin-bottom: 0.3rem; 
+        }
+        .timeline-text { 
+            font-size: 0.9rem; 
+            color: var(--empire-text); 
+            opacity: 0.8; 
+            line-height: 1.5; 
+        }
+
+        .feature-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 1rem; 
+        }
+        @media (min-width: 900px) { 
+            .feature-grid { 
+                grid-template-columns: repeat(3, 1fr); 
+            } 
+        }
+        .feature-card { 
+            background: var(--empire-card); 
+            border: 1px solid var(--empire-border); 
+            border-radius: 10px; 
+            padding: 1.25rem; 
+        }
+        .feature-icon { 
+            width: 40px; 
+            height: 40px; 
+            background: rgba(201, 169, 98, 0.1); 
+            border-radius: 8px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin-bottom: 0.75rem;
+        }
+        .feature-icon svg { width: 20px; height: 20px; color: var(--empire-gold); }
+        .feature-content h4 { 
+            font-size: 0.95rem; 
+            font-weight: 600; 
+            margin-bottom: 0.3rem; 
+        }
+        .feature-content p { 
+            font-size: 0.8rem; 
+            color: var(--empire-text); 
+            opacity: 0.75; 
+            line-height: 1.45; 
+        }
+
+        .stats-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 1.25rem; 
+        }
+        .stat-card { 
+            text-align: center; 
+            padding: 1.5rem 1rem; 
+            background: linear-gradient(135deg, rgba(201, 169, 98, 0.08) 0%, transparent 60%); 
+            border: 1px solid rgba(201, 169, 98, 0.2); 
+            border-radius: 10px; 
+        }
+        .stat-number { 
+            font-size: clamp(1.75rem, 3vw, 2.5rem); 
+            font-weight: 700; 
+            font-family: var(--font-display); 
+            background: var(--gold-gradient); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            background-clip: text; 
+            line-height: 1; 
+            margin-bottom: 0.4rem; 
+        }
+        .stat-label { 
+            font-size: 0.75rem; 
+            color: var(--empire-text); 
+            opacity: 0.7; 
+            text-transform: uppercase; 
+            letter-spacing: 0.08em; 
+        }
+
+        .quote-block { 
+            border-left: 2px solid var(--empire-gold); 
+            padding-left: 1.25rem; 
+            margin: 1.5rem 0; 
+        }
+        .quote-text { 
+            font-size: 1.1rem; 
+            font-style: italic; 
+            line-height: 1.55; 
+            color: var(--empire-text); 
+            opacity: 0.9; 
+        }
+
+        .comparison { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 1.5rem; 
+            margin-top: 1.5rem; 
+        }
+        .comparison-box { 
+            padding: 1.5rem; 
+            border-radius: 10px; 
+        }
+        .comparison-box.before { 
+            background: var(--empire-card); 
+            border: 1px solid var(--empire-border); 
+        }
+        .comparison-box.after { 
+            background: linear-gradient(135deg, rgba(201, 169, 98, 0.1) 0%, transparent 50%); 
+            border: 1px solid rgba(201, 169, 98, 0.3); 
+        }
+        .comparison-title { 
+            font-size: 1rem; 
+            font-weight: 600; 
+            margin-bottom: 0.75rem; 
+            display: flex; 
+            align-items: center; 
+            gap: 0.4rem; 
+        }
+
+        .breakthrough-quote { 
+            font-size: clamp(1.1rem, 2vw, 1.5rem); 
+            font-style: italic; 
+            text-align: center; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            line-height: 1.55; 
+            color: var(--empire-text); 
+            opacity: 0.95; 
+        }
+        .breakthrough-highlight { 
+            color: var(--empire-gold); 
+            font-weight: 600; 
+        }
+
+        .final-message { 
+            text-align: center; 
+            max-width: 750px; 
+            margin: 0 auto; 
+        }
+        .final-message h2 { 
+            font-size: clamp(1.5rem, 3vw, 2.25rem); 
+            font-weight: 500; 
+            line-height: 1.3; 
+            margin-bottom: 1.5rem; 
+        }
+        .final-stat { 
+            display: inline-block; 
+            padding: 1.25rem 2.5rem; 
+            background: linear-gradient(135deg, rgba(201, 169, 98, 0.15) 0%, rgba(201, 169, 98, 0.05) 100%); 
+            border: 1px solid rgba(201, 169, 98, 0.3); 
+            border-radius: 10px; 
+            margin: 1.5rem 0; 
+        }
+        .final-stat-number { 
+            font-size: 2.5rem; 
+            font-weight: 700; 
+            font-family: var(--font-display); 
+            color: var(--empire-gold); 
+            line-height: 1; 
+        }
+        .final-stat-label { 
+            font-size: 0.8rem; 
+            color: var(--empire-text); 
+            opacity: 0.7; 
+            text-transform: uppercase; 
+            letter-spacing: 0.1em; 
+            margin-top: 0.4rem; 
+        }
+
+        .bg-grid { 
+            position: absolute; 
+            inset: 0; 
+            background-image: 
+                linear-gradient(rgba(201, 169, 98, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201, 169, 98, 0.02) 1px, transparent 1px); 
+            background-size: 50px 50px; 
+            pointer-events: none; 
+        }
+        .bg-glow { 
+            position: absolute; 
+            inset: 0; 
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(201, 169, 98, 0.06) 0%, transparent 35%),
+                radial-gradient(ellipse at 80% 80%, rgba(201, 169, 98, 0.04) 0%, transparent 30%); 
+            pointer-events: none; 
+        }
+
+        @media (max-width: 768px) {
+            .nav-dots, .keyboard-hint { display: none; }
+            .fullscreen-btn { top: 1rem; right: 1rem; padding: 0.5rem; }
+            .fullscreen-btn svg { width: 16px; height: 16px; }
+            .case-wrapper { grid-template-columns: 1fr; }
+            .case-image-container { max-width: 250px; margin: 0 auto; }
+            .logos-grid { grid-template-columns: repeat(2, 1fr); }
+            .feature-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .comparison { grid-template-columns: 1fr; }
+            .problem-cycle { flex-direction: column; }
+            .problem-arrow { transform: rotate(90deg); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { transition: opacity 0.3s ease; transform: none; }
+            html { scroll-snap-type: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fullscreen Button -->
+    <button class="fullscreen-btn" id="fullscreenBtn" aria-label="Alternar tela cheia">
+        <svg id="fullscreenIcon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
+        </svg>
+    </button>
+    
+    <div class="progress-bar" id="progressBar"></div>
+    <nav class="nav-dots" id="navDots"></nav>
+    <div class="keyboard-hint">Use ↑ ↓ para navegar • F para tela cheia</div>
+
+    <!-- SLIDE 1: CAPA -->
+    <section class="slide slide-cover" data-slide="0">
+        <div class="slide-content">
+            <div class="reveal">
+                <img src="logos-empire/Logotipo%2002%20para%20fundo%20escuro.png" alt="Empire Business" class="cover-logo-img">
+            </div>
+            <div class="reveal"><span class="cover-badge">Case de Sucesso</span></div>
+            <h1 class="cover-title font-display reveal">De Zero a<br><span class="text-gold-gradient">R$ 5 Milhões</span></h1>
+            <p class="cover-subtitle reveal">Como construímos a Empire Business usando Inteligência Artificial — não só para automatizar tarefas, mas para repensar completamente como a empresa funcionava.</p>
+        </div>
+        <div class="cover-footer reveal">
+            <span class="cover-logo-text">Empire Business</span>
+            <span>Apresentação Executiva 2026</span>
+        </div>
+    </section>
+
+    <!-- SLIDE 2: ABERTURA -->
+    <section class="slide" data-slide="1">
+        <div class="bg-grid"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Bloco 1 — Abertura</span>
+            <h2 class="section-title font-display reveal">A Jornada</h2>
+            <div class="section-text reveal">
+                <p>"No ano passado, faturamos R$ 5 milhões. Não estou falando isso como número solto. Estou falando porque dois anos atrás não chegamos nem perto disso.</p>
+                <div class="quote-block reveal">
+                    <p class="quote-text">"O que mudou não foi sorte. Não foi um investimento externo. Não foi contratar alguém genial. Foi a forma como usamos Inteligência Artificial."</p>
+                </div>
+                <p>Hoje quero compartilhar essa jornada. O que funcionou, o que não funcionou, e o que faríamos diferente se começássemos do zero.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 3: QUEM SOMOS -->
+    <section class="slide" data-slide="2">
+        <div class="bg-glow"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Bloco 2 — Quem Somos</span>
+            <h2 class="section-title font-display reveal">A Empire Business</h2>
+            <div class="section-text reveal">
+                <p>Meu nome é <strong>Bruno</strong>, sou diretor de operações da Empire. Cuido de tudo que faz a empresa funcionar de dentro pra fora — processos, time, produto...</p>
+                <p>A <strong>Empire Business</strong> ajuda empresários e especialistas a escalarem presença digital sem abrir mão de quem eles são.</p>
+            </div>
+            <div class="card" style="margin-top: 1.5rem; max-width: 600px;">
+                <div class="card-icon reveal">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                </div>
+                <h3 class="card-title reveal" style="font-size: 1.1rem;">Nosso Cliente Típico</h3>
+                <p class="card-text reveal">Alguém que <strong>domina o mercado onde atua</strong> — tem autoridade, resultado, história. Mas digitalmente, não existe. Ou existe de um jeito que não representa quem ele é de verdade.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 4: O PROBLEMA -->
+    <section class="slide" data-slide="3">
+        <div class="bg-grid"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Bloco 3 — O Problema</span>
+            <h2 class="section-title font-display reveal">O Que Resolvemos</h2>
+            <div class="section-text reveal">
+                <p>O que víamos repetidamente: ele é referência no mercado, tem anos de experiência, todo mundo respeita o nome dele. <strong>Mas digitalmente, ele não existe.</strong></p>
+            </div>
+            <h3 class="font-display reveal" style="font-size: 1.25rem; margin: 1.25rem 0 0.75rem; color: var(--empire-gold);">O Ciclo Vicioso</h3>
+            <div class="problem-cycle reveal">
+                <div class="problem-item"><h4>Contrata Agência</h4><p>Não entrega → demite</p></div>
+                <div class="problem-arrow">→</div>
+                <div class="problem-item"><h4>Monta Time Interno</h4><p>Não sabe treinar → resultado ruim</p></div>
+                <div class="problem-arrow">→</div>
+                <div class="problem-item"><h4>Tenta Sozinho</h4><p>Vira personagem que não é → desiste</p></div>
+            </div>
+            <div class="quote-block reveal" style="margin-top: 1.25rem;">
+                <p class="quote-text" style="font-size: 1rem;">"O problema não é falta de esforço. É falta de processo."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 5: MARCAS -->
+    <section class="slide" data-slide="4">
+        <div class="slide-content">
+            <span class="section-label reveal">Bloco 3.1 — Quem Passou Por Aqui</span>
+            <h2 class="section-title font-display reveal">Marcas Que Atendemos</h2>
+            <div class="logos-grid reveal">
+                <div class="logo-item"><img src="logos%20das%20Marcas%20com%20quem%20j%C3%A1%20trabalhamos/1.webp" alt="" loading="lazy"></div>
+                <div class="logo-item"><img src="logos%20das%20Marcas%20com%20quem%20j%C3%A1%20trabalhamos/2.webp" alt="" loading="lazy"></div>
+                <div class="logo-item"><img src="logos%20das%20Marcas%20com%20quem%20j%C3%A1%20trabalhamos/3.webp" alt="" loading="lazy"></div>
+                <div class="logo-item"><img src="logos%20das%20Marcas%20com%20quem%20j%C3%A1%20trabalhamos/4.webp" alt="" loading="lazy"></div>
+                <div class="logo-item"><img src="logos%20das%20Marcas%20com%20quem%20j%C3%A1%20trabalhamos/5.webp" alt="" loading="lazy"></div>
+                <div class="logo-item"><img src="logos%20das%20Marcas%20com%20quem%20j%C3%A1%20trabalhamos/6.webp" alt="" loading="lazy"></div>
+                <div class="logo-item"><img src="logos%20das%20Marcas%20com%20quem%20j%C3%A1%20trabalhamos/7.webp" alt="" loading="lazy"></div>
+                <div class="logo-item"><img src="logos%20das%20Marcas%20com%20quem%20j%C3%A1%20trabalhamos/8.webp" alt="" loading="lazy"></div>
+                <div class="logo-item"><img src="logos%20das%20Marcas%20com%20quem%20j%C3%A1%20trabalhamos/9.webp" alt="" loading="lazy"></div>
+                <div class="logo-item"><img src="logos%20das%20Marcas%20com%20quem%20j%C3%A1%20trabalhamos/10.webp" alt="" loading="lazy"></div>
+                <div class="logo-item"><img src="logos%20das%20Marcas%20com%20quem%20j%C3%A1%20trabalhamos/11.webp" alt="" loading="lazy"></div>
+                <div class="logo-item"><img src="logos%20das%20Marcas%20com%20quem%20j%C3%A1%20trabalhamos/12.webp" alt="" loading="lazy"></div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+
+    <!-- SLIDE 6: CASE THIAGO REIS - Layout 9:16 otimizado -->
+    <section class="slide" data-slide="5">
+        <div class="bg-glow"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Case de Sucesso</span>
+            <div class="case-wrapper reveal">
+                <div class="case-image-container">
+                    <img src="PRINT%20DO%20PERFIL%20DO%20THIAGO%20REIS.PNG" alt="Perfil Thiago Reis no Instagram">
+                </div>
+                <div class="case-content">
+                    <div class="case-header-inline">
+                        <img src="PRINT%20DO%20PERFIL%20DO%20THIAGO%20REIS.PNG" alt="" class="case-avatar-small" style="display: none;">
+                        <div>
+                            <h3 class="case-name">Thiago Reis</h3>
+                            <p class="case-role">Especialista em Vendas</p>
+                        </div>
+                    </div>
+                    <p class="case-quote">"O Thiago chegou com uma base grande — mas desengajada. Tinha crescido via tráfego pago, e os seguidores não conectavam com ele de verdade."</p>
+                    <p class="case-quote">Fizemos posicionamento com três pilares: vendas, empreendedorismo e alta performance. Estruturamos 2-3 conteúdos por dia com consistência.</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 1.5rem;">
+                        <div class="case-result">
+                            <div class="case-stat">45 dias</div>
+                            <div class="case-stat-label">Para triplicar seguidores</div>
+                        </div>
+                        <div class="case-result">
+                            <div class="case-stat">R$ 12M → R$ 60M</div>
+                            <div class="case-stat-label">Faturamento + escritório Berrini</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 7: CASE OTÁVIO AMARAL - Layout 9:16 otimizado -->
+    <section class="slide" data-slide="6">
+        <div class="bg-glow"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Case de Sucesso</span>
+            <div class="case-wrapper reveal">
+                <div class="case-image-container">
+                    <img src="PRINT%20DO%20PERFIL%20DO%20OTAVIO%20AMARAL.PNG" alt="Perfil Otávio Amaral no Instagram">
+                </div>
+                <div class="case-content">
+                    <div class="case-header-inline">
+                        <div>
+                            <h3 class="case-name">Otávio Amaral</h3>
+                            <p class="case-role">Empreendedor Digital</p>
+                        </div>
+                    </div>
+                    <p class="case-quote">"O Otávio era um caso diferente. Não tinha presença digital nenhuma — começou do zero."</p>
+                    <p class="case-quote">Com processo, consistência e posicionamento bem definido, construímos sua presença do absoluto zero.</p>
+                    <div class="case-result">
+                        <div class="case-stat">~80 mil</div>
+                        <div class="case-stat-label">Seguidores conquistados</div>
+                    </div>
+                    <div class="quote-block" style="margin-top: 1rem;">
+                        <p class="quote-text" style="font-size: 1rem;">"Parece simples. E é — quando existe processo."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 8: CASE HENRIQUE CAROLENSKE - Layout 9:16 otimizado -->
+    <section class="slide" data-slide="7">
+        <div class="bg-glow"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Case de Sucesso</span>
+            <div class="case-wrapper reveal">
+                <div class="case-image-container">
+                    <img src="PRINT%20DO%20PERFIL%20DO%20HENRIQUE%20CAROLENSKE.PNG" alt="Perfil Henrique Carolenske no Instagram">
+                </div>
+                <div class="case-content">
+                    <div class="case-header-inline">
+                        <div>
+                            <h3 class="case-name">Henrique Carolenske</h3>
+                            <p class="case-role">Especialista em Branding</p>
+                        </div>
+                    </div>
+                    <p class="case-quote">"O Henrique chegou sem saber exatamente o que queria falar. Sabia que precisava de audiência, mas não tinha clareza de tema."</p>
+                    <p class="case-quote">Definimos pilares: branding, criação de marca e análise de produtos. Ele executou com consistência.</p>
+                    <div class="case-result">
+                        <div class="case-stat">500 mil+</div>
+                        <div class="case-stat-label">Seguidores — vende 100% orgânico</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 9: COMO ERA ANTES -->
+    <section class="slide" data-slide="8">
+        <div class="bg-grid"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Bloco 4 — Como Era Antes</span>
+            <h2 class="section-title font-display reveal">A Estrutura Antiga</h2>
+            <div class="section-text reveal">
+                <p>A estrutura era a clássica de empresa de conteúdo: gerente, estrategistas, roteiristas, editores, social medias. Cada um fazendo um pedaço. Parecia lógico, mas era caro e a qualidade abaixo do possível.</p>
+            </div>
+            <div class="comparison reveal">
+                <div class="comparison-box before">
+                    <h4 class="comparison-title">❌ O Problema</h4>
+                    <ul style="list-style: none; font-size: 0.9rem; line-height: 1.8;">
+                        <li>• Inconsistência na qualidade</li>
+                        <li>• Dependência de pessoas</li>
+                        <li>• Difícil de escalar</li>
+                        <li>• Alto custo operacional</li>
+                        <li>• Frágil quando alguém saía</li>
+                    </ul>
+                </div>
+                <div class="comparison-box after">
+                    <h4 class="comparison-title">💡 A Pergunta</h4>
+                    <p style="font-size: 1rem; line-height: 1.65; color: var(--empire-text); opacity: 0.9;">"E se conseguíssemos colocar esse julgamento num processo? E se a IA pudesse carregar parte desse peso?"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 10: A VIRADA -->
+    <section class="slide" data-slide="9">
+        <div class="bg-glow"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Bloco 5 — A Virada</span>
+            <h2 class="section-title font-display reveal">O Momento da Mudança</h2>
+            <p class="section-text reveal" style="margin-bottom: 1.25rem;">Não chegamos num sistema pronto do dia pra noite. Foi tentativa e erro.</p>
+            <div class="timeline reveal">
+                <div class="timeline-item">
+                    <h4 class="timeline-title">Começamos Simples</h4>
+                    <p class="timeline-text">Uma cadência de GPTs. Nada sofisticado. Pegamos frameworks que funcionavam e estruturamos para a IA replicar.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4 class="timeline-title">No Começo Era Ruim</h4>
+                    <p class="timeline-text">O conteúdo saía genérico, sem personalidade. Mas fomos ajustando...</p>
+                </div>
+                <div class="timeline-item">
+                    <h4 class="timeline-title">A Descoberta</h4>
+                    <p class="timeline-text">O problema nunca era a IA. Era a qualidade do processo que alimentava a IA.</p>
+                </div>
+            </div>
+            <div class="card" style="margin-top: 1.25rem;">
+                <p class="reveal" style="font-size: 1rem; font-style: italic; opacity: 0.9;">"Quanto mais estruturado era o processo — quanto mais claro era o posicionamento, o tom de voz, os formatos — melhor a IA performava."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 11: CAMI GRATUITA -->
+    <section class="slide tool-slide" data-slide="10">
+        <div class="bg-grid"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Ferramenta 1</span>
+            <h2 class="section-title font-display reveal">Cami Gratuita</h2>
+            <div class="section-text reveal">
+                <p>Percebemos que o maior gargalo de vendas era <strong>tempo</strong> — tempo do time explicando o básico pra quem ainda nem sabia o que precisava.</p>
+            </div>
+            <div class="screenshot-container reveal">
+                <img src="Imagens/Cami%20Gratuita/A%20cami%20gratuita%20gera%20uma%20analise%20do%20instagram%20no%20whatsapp%20e%20manda%20um%20link%20para%20uma%20pagina%20personalizada%20pro%20lead,%20com%20uma%20carta%20personalizada%20com%20link%20de%20aplicacao.png" alt="Cami Gratuita">
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 12: CAMI PRO - Página Inicial -->
+    <section class="slide tool-slide" data-slide="11">
+        <div class="bg-grid"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Ferramenta 2</span>
+            <h2 class="section-title font-display reveal">Cami Paga — Plataforma</h2>
+            <div class="section-text reveal">
+                <p>O desafio era <strong>escala sem perda de identidade</strong>. A Cami Paga lê o branding book e desdobra conteúdo em roteiros, posts e legendas — tudo no tom de voz do cliente.</p>
+            </div>
+            <div class="screenshot-container reveal">
+                <img src="Imagens/Cami%20PRO/Pagina%20inicial.png" alt="Cami PRO">
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 13: CAMI PRO - Seletor de Modos -->
+    <section class="slide tool-slide" data-slide="12">
+        <div class="bg-grid"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Cami PRO — Funcionalidades</span>
+            <h2 class="section-title font-display reveal">Seletor de Modos</h2>
+            <div class="section-text reveal">
+                <p>Escolha qual tipo de modo usar e qual tipo de roteiro quer fazer. Total flexibilidade para criar conteúdo no formato certo.</p>
+            </div>
+            <div class="screenshot-container reveal">
+                <img src="Imagens/Cami%20PRO/Seletor%20de%20modos%20da%20Cami%20-%20voc%C3%AA%20pode%20escolher%20qual%20tipo%20de%20modo%20usar%20e%20qual%20tipo%20de%20roteiro%20voc%C3%AA%20quer%20fazer.png" alt="Seletor de Modos">
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 14: CAMI PRO - Branding Book -->
+    <section class="slide tool-slide" data-slide="13">
+        <div class="bg-grid"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Cami PRO — Funcionalidades</span>
+            <h2 class="section-title font-display reveal">Branding Book Inteligente</h2>
+            <div class="section-text reveal">
+                <p>O branding book fica salvo no perfil e é usado para criar todos os conteúdos no tom de voz certo, com a identidade preservada.</p>
+            </div>
+            <div class="screenshot-container reveal">
+                <img src="Imagens/Cami%20PRO/seu%20branding%20book%20fica%20salvo%20no%20seu%20perfil%20e%20%C3%A9%20utilizado%20para%20criar%20os%20conteudos.png" alt="Branding Book">
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 15: CAMI PRO - Insights -->
+    <section class="slide tool-slide" data-slide="14">
+        <div class="bg-grid"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Cami PRO — Funcionalidades</span>
+            <h2 class="section-title font-display reveal">Insights Personalizados</h2>
+            <div class="section-text reveal">
+                <p>Ao criar um roteiro, a Cami sugere insights conforme o branding. Basta escolher um para ela terminar o roteiro completo.</p>
+            </div>
+            <div class="screenshot-container reveal">
+                <img src="Imagens/Cami%20PRO/ao%20criar%20um%20roteiro,%20a%20Cami%20sugere%20os%20insights%20conforme%20o%20seu%20branding.%20Basta%20escolher%20um%20para%20que%20ela%20termine%20de%20fazer%20o%20roteiro.png" alt="Insights">
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 16: CAMI PRO - Roteiro Completo -->
+    <section class="slide tool-slide" data-slide="15">
+        <div class="bg-grid"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Cami PRO — Resultado</span>
+            <h2 class="section-title font-display reveal">Roteiro Completo Gerado</h2>
+            <div class="section-text reveal">
+                <p>Exemplo de roteiro de história feito pela Cami, pronto para gravar. Uma hora de conversa vira muitas peças prontas.</p>
+            </div>
+            <div class="screenshot-container reveal">
+                <img src="Imagens/Cami%20PRO/exemplo%20de%20um%20roteiro%20de%20historia%20feito%20pela%20Cami.png" alt="Roteiro Completo">
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 17: CAMI PRO - Mapa de Edição -->
+    <section class="slide tool-slide" data-slide="16">
+        <div class="bg-grid"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Cami PRO — Funcionalidades</span>
+            <h2 class="section-title font-display reveal">Mapa de Edição</h2>
+            <div class="section-text reveal">
+                <p>Além do roteiro, a Cami dá sugestões de como editar o vídeo, num mapa de edição completo.</p>
+            </div>
+            <div class="screenshot-container reveal">
+                <img src="Imagens/Cami%20PRO/alem%20do%20roteiro,%20a%20cami%20da%20sugestoes%20de%20como%20editar%20o%20video,%20num%20mapa%20de%20edicao,%20aqui%20esta%20um%20exemplo.png" alt="Mapa de Edição">
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 18: ANÁLISE PÁGINA OBRIGADO -->
+    <section class="slide tool-slide" data-slide="17">
+        <div class="bg-grid"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Ferramenta 3</span>
+            <h2 class="section-title font-display reveal">Análise na Página de Obrigado</h2>
+            <div class="section-text reveal">
+                <p>O lead chega na ligação com o SDR já tendo visto o diagnóstico do próprio perfil. Isso mudou a dinâmica: o vendedor ajuda o cliente a entender o que ele já viu.</p>
+            </div>
+            <div class="screenshot-container reveal">
+                <img src="Imagens/Analise%20gratuita%20na%20pagina%20de%20obrigado/print%20da%20pagina%20de%20obrigado%20oferecendo%20uma%20analise%20gratuita%20para%20os%20mqls%20.png" alt="Página de Obrigado">
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 19: ANÁLISE EXEMPLO -->
+    <section class="slide tool-slide" data-slide="18">
+        <div class="bg-grid"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Análise Gratuita — Exemplo</span>
+            <h2 class="section-title font-display reveal">Análise Completa do Perfil</h2>
+            <div class="section-text reveal">
+                <p>A IA avalia o perfil completo e entrega insights acionáveis para o lead.</p>
+            </div>
+            <div class="screenshot-container reveal">
+                <img src="Imagens/Analise%20gratuita%20na%20pagina%20de%20obrigado/exemplo%20de%20analise%20gratuita%20que%20fazemos%20para%20o%20lead%20-%20primt.png" alt="Análise">
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 20: ANÁLISE PERGUNTA -->
+    <section class="slide tool-slide" data-slide="19">
+        <div class="bg-grid"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Análise Gratuita — Interação</span>
+            <h2 class="section-title font-display reveal">Perguntas Inteligentes</h2>
+            <div class="section-text reveal">
+                <p>A análise faz perguntas estratégicas para entender melhor o perfil e personalizar as recomendações.</p>
+            </div>
+            <div class="screenshot-container reveal">
+                <img src="Imagens/Analise%20gratuita%20na%20pagina%20de%20obrigado/exemplo%20de%20pergunta%20que%20fazemos.png" alt="Pergunta">
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 21: EMPIRE MANAGER -->
+    <section class="slide tool-slide" data-slide="20">
+        <div class="bg-grid"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Ferramenta 4</span>
+            <h2 class="section-title font-display reveal">Empire-Manager</h2>
+            <div class="section-text reveal">
+                <p>Estávamos espalhados em mil ferramentas. O Empire-Manager centraliza cargos, responsabilidades, processos e projetos num único sistema.</p>
+            </div>
+            <div class="screenshot-container reveal">
+                <img src="Imagens/Empire-Manager/Cadastro%20de%20%C3%A1reas%20e%20cargos%20que%20existem%20na%20empresa.png" alt="Empire-Manager">
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 22: EMPIRE MANAGER - Organograma -->
+    <section class="slide tool-slide" data-slide="21">
+        <div class="bg-grid"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Empire-Manager — Visualização</span>
+            <h2 class="section-title font-display reveal">Organograma de Áreas</h2>
+            <div class="section-text reveal">
+                <p>Visualização clara de todas as áreas e cargos. Quando tudo está num lugar, fica difícil fingir que o processo existe quando ele não existe.</p>
+            </div>
+            <div class="screenshot-container reveal">
+                <img src="Imagens/Empire-Manager/organograma%20de%20areas%20e%20cargos.png" alt="Organograma">
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 23: EMPIRE MANAGER - Criando Processo 1 -->
+    <section class="slide tool-slide" data-slide="22">
+        <div class="bg-grid"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Empire-Manager — IA</span>
+            <h2 class="section-title font-display reveal">Criar Processo com IA</h2>
+            <div class="section-text reveal">
+                <p>Parte 1: Descreva o que você quer. A IA entende a necessidade e começa a estruturar.</p>
+            </div>
+            <div class="screenshot-container reveal">
+                <img src="Imagens/Empire-Manager/criando%20um%20novo%20processo%20com%20ia%20parte%201%20-%20descrevi%20o%20que%20eu%20quero%20para%20o%20processo.png" alt="Criando Processo">
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 24: EMPIRE MANAGER - Documento -->
+    <section class="slide tool-slide" data-slide="23">
+        <div class="bg-grid"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Empire-Manager — IA</span>
+            <h2 class="section-title font-display reveal">Documento Markdown</h2>
+            <div class="section-text reveal">
+                <p>Parte 2: O sistema gera um documento Markdown completo, estruturado e pronto para usar.</p>
+            </div>
+            <div class="screenshot-container reveal">
+                <img src="Imagens/Empire-Manager/parte%202%20de%20criar%20um%20processo%20-%20o%20sistema%20gera%20um%20documento%20markdown%20completo%20por%20ia.png" alt="Documento">
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 25: EMPIRE MANAGER - Diagrama -->
+    <section class="slide tool-slide" data-slide="24">
+        <div class="bg-grid"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Empire-Manager — Visualização</span>
+            <h2 class="section-title font-display reveal">Diagrama Visual</h2>
+            <div class="section-text reveal">
+                <p>Parte 3: Além do documento, gera um diagrama visual do processo. Visual e textual, do jeito que o time precisa.</p>
+            </div>
+            <div class="screenshot-container reveal">
+                <img src="Imagens/Empire-Manager/parte%203%20geracao%20de%20processo%20com%20IA%20-%20ele%20tambem%20gera%20um%20diagrama%20visual%20do%20processo.png" alt="Diagrama">
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 26: DASHBOARD -->
+    <section class="slide tool-slide" data-slide="25">
+        <div class="bg-grid"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Ferramenta 5</span>
+            <h2 class="section-title font-display reveal">Empire-Dashboard</h2>
+            <div class="section-text reveal">
+                <p>Integramos CRM com Meta Ads num dashboard próprio. Não porque as ferramentas nativas eram ruins — mas porque precisávamos ver os dados do nosso jeito.</p>
+            </div>
+            <div class="screenshot-container reveal">
+                <img src="Imagens/Dashboard/Exemplo%20parcial%20de%20um%20funil%20espec%C3%ADfico.png" alt="Dashboard">
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 27: RESULTADOS -->
+    <section class="slide" data-slide="26">
+        <div class="bg-glow"></div>
+        <div class="slide-content">
+            <span class="section-label reveal">Bloco 8 — O Que Isso Gerou</span>
+            <h2 class="section-title font-display reveal">Os Números</h2>
+            <div class="stats-grid reveal">
+                <div class="stat-card">
+                    <div class="stat-number">R$ 5M</div>
+                    <div class="stat-label">Faturamento último ano</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">Menos</div>
+                    <div class="stat-label">Pessoas vs 2 anos atrás</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">Mais</div>
+                    <div class="stat-label">Clientes com qualidade</div>
+                </div>
+            </div>
+            <div class="quote-block reveal" style="margin-top: 2rem;">
+                <p class="quote-text" style="font-size: 1.05rem;">"Não demitimos e colocamos robô. Paramos de contratar pra tapar buraco de processo. A IA nos forçou a ser mais claros, estruturados e intencionais."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 28: FECHAMENTO -->
+    <section class="slide" data-slide="27" style="background: var(--empire-surface);">
+        <div class="bg-glow"></div>
+        <div class="slide-content">
+            <div class="final-message">
+                <span class="section-label reveal" style="justify-content: center;">Bloco 9 — Fechamento</span>
+                <h2 class="section-title font-display reveal" style="text-align: center;">O Que Aprendemos</h2>
+                <div class="reveal">
+                    <p class="breakthrough-quote">O processo vem antes de escala. <span class="breakthrough-highlight">Clareza vem antes de automação.</span></p>
+                </div>
+                <div class="quote-block reveal" style="text-align: left; max-width: 650px; margin: 1.5rem auto;">
+                    <p class="quote-text" style="font-size: 1rem;">"A IA amplifica o que você já tem. Se você tem processo, ela amplifica eficiência. Se não tem, ela amplifica o caos."</p>
+                </div>
+                <p class="reveal" style="text-align: center; color: var(--empire-text); opacity: 0.75; font-size: 1rem; line-height: 1.6; max-width: 650px; margin: 0 auto;">Começamos com GPTs num computador. Construímos ferramentas, definimos processos, mas por baixo de toda tecnologia, nos forçamos a entender o negócio de verdade.</p>
+                <div class="final-stat reveal">
+                    <div class="final-stat-number">Obrigado</div>
+                    <div class="final-stat-label">Empire Business</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.navDots = document.getElementById('navDots');
+                this.progressBar = document.getElementById('progressBar');
+                this.fullscreenBtn = document.getElementById('fullscreenBtn');
+                this.fullscreenIcon = document.getElementById('fullscreenIcon');
+                this.currentSlide = 0;
+                this.totalSlides = this.slides.length;
+                this.init();
+            }
+            
+            init() {
+                this.createNavDots();
+                this.setupIntersectionObserver();
+                this.setupKeyboardNavigation();
+                this.setupTouchNavigation();
+                this.setupWheelNavigation();
+                this.setupFullscreen();
+                this.updateProgress();
+            }
+            
+            createNavDots() {
+                this.slides.forEach((_, index) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'nav-dot' + (index === 0 ? ' active' : '');
+                    dot.setAttribute('aria-label', `Ir para slide ${index + 1}`);
+                    dot.addEventListener('click', () => this.goToSlide(index));
+                    this.navDots.appendChild(dot);
+                });
+            }
+            
+            setupIntersectionObserver() {
+                const options = { root: null, rootMargin: '0px', threshold: 0.5 };
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const slideIndex = parseInt(entry.target.dataset.slide);
+                            this.currentSlide = slideIndex;
+                            entry.target.classList.add('visible');
+                            this.updateNavDots();
+                            this.updateProgress();
+                        }
+                    });
+                }, options);
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+            
+            setupKeyboardNavigation() {
+                document.addEventListener('keydown', (e) => {
+                    switch(e.key) {
+                        case 'ArrowDown': case 'ArrowRight': case ' ': case 'PageDown':
+                            e.preventDefault(); this.nextSlide(); break;
+                        case 'ArrowUp': case 'ArrowLeft': case 'PageUp':
+                            e.preventDefault(); this.prevSlide(); break;
+                        case 'f': case 'F':
+                            this.toggleFullscreen(); break;
+                        case 'Home':
+                            e.preventDefault(); this.goToSlide(0); break;
+                        case 'End':
+                            e.preventDefault(); this.goToSlide(this.totalSlides - 1); break;
+                        case 'Escape':
+                            if (document.fullscreenElement) {
+                                document.exitFullscreen();
+                            }
+                            break;
+                    }
+                });
+            }
+            
+            setupTouchNavigation() {
+                let touchStartY = 0;
+                document.addEventListener('touchstart', (e) => { touchStartY = e.changedTouches[0].screenY; }, { passive: true });
+                document.addEventListener('touchend', (e) => {
+                    const touchEndY = e.changedTouches[0].screenY;
+                    const diff = touchStartY - touchEndY;
+                    if (Math.abs(diff) > 50) diff > 0 ? this.nextSlide() : this.prevSlide();
+                }, { passive: true });
+            }
+            
+            setupWheelNavigation() {
+                let wheelTimeout;
+                document.addEventListener('wheel', (e) => {
+                    if (wheelTimeout) return;
+                    wheelTimeout = setTimeout(() => { wheelTimeout = null; }, 700);
+                    e.deltaY > 0 ? this.nextSlide() : this.prevSlide();
+                }, { passive: true });
+            }
+            
+            setupFullscreen() {
+                this.fullscreenBtn.addEventListener('click', () => this.toggleFullscreen());
+                
+                document.addEventListener('fullscreenchange', () => this.updateFullscreenIcon());
+                document.addEventListener('webkitfullscreenchange', () => this.updateFullscreenIcon());
+                document.addEventListener('mozfullscreenchange', () => this.updateFullscreenIcon());
+                document.addEventListener('MSFullscreenChange', () => this.updateFullscreenIcon());
+            }
+            
+            toggleFullscreen() {
+                if (!document.fullscreenElement && !document.webkitFullscreenElement && 
+                    !document.mozFullScreenElement && !document.msFullscreenElement) {
+                    const docEl = document.documentElement;
+                    if (docEl.requestFullscreen) docEl.requestFullscreen();
+                    else if (docEl.webkitRequestFullscreen) docEl.webkitRequestFullscreen();
+                    else if (docEl.mozRequestFullScreen) docEl.mozRequestFullScreen();
+                    else if (docEl.msRequestFullscreen) docEl.msRequestFullscreen();
+                } else {
+                    if (document.exitFullscreen) document.exitFullscreen();
+                    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                    else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
+                    else if (document.msExitFullscreen) document.msExitFullscreen();
+                }
+            }
+            
+            updateFullscreenIcon() {
+                const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement || 
+                                     document.mozFullScreenElement || document.msFullscreenElement;
+                
+                if (isFullscreen) {
+                    this.fullscreenIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>';
+                } else {
+                    this.fullscreenIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>';
+                }
+            }
+            
+            goToSlide(index) { 
+                if (index >= 0 && index < this.totalSlides) 
+                    this.slides[index].scrollIntoView({ behavior: 'smooth' }); 
+            }
+            nextSlide() { if (this.currentSlide < this.totalSlides - 1) this.goToSlide(this.currentSlide + 1); }
+            prevSlide() { if (this.currentSlide > 0) this.goToSlide(this.currentSlide - 1); }
+            updateNavDots() { this.navDots.querySelectorAll('.nav-dot').forEach((dot, i) => dot.classList.toggle('active', i === this.currentSlide)); }
+            updateProgress() { this.progressBar.style.width = ((this.currentSlide + 1) / this.totalSlides * 100) + '%'; }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => new SlidePresentation());
+    </script>
+</body>
+</html>
