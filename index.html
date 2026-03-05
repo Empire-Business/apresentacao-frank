@@ -382,6 +382,11 @@
             object-fit: cover;
         }
         
+        .book-illustration {
+            width: min(280px, 35vh);
+            height: min(340px, 42vh);
+        }
+        
         @media (max-width: 900px) {
             .about-wrapper {
                 height: auto;
@@ -389,6 +394,10 @@
             }
             .photo-container {
                 width: 200px;
+                height: 200px;
+            }
+            .book-illustration {
+                width: 160px;
                 height: 200px;
             }
         }
@@ -1356,44 +1365,46 @@
         <div class="bg-grid"></div>
         <div class="slide-content">
             <span class="section-label reveal">Ferramenta 6 — Livro por Mês</span>
-            <div style="display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: center;">
-                <div>
-                    <h2 class="section-title font-display reveal">Conteúdo com Repertório</h2>
-                    <div class="section-text reveal">
+            <div class="about-wrapper reveal">
+                <div class="about-content">
+                    <h2 class="section-title font-display">Conteúdo com Repertório</h2>
+                    <div class="section-text">
                         <p>Entendemos que o problema de <strong>conteúdo raso</strong> vem de <strong>repertório raso</strong>.</p>
                         <p>Criamos um projeto de escrever um livro por mês com IA para o nosso CEO, <strong>Sandro San</strong> — pra ter uma base rica de onde tirar o conteúdo menor.</p>
                     </div>
-                    <div class="card" style="margin-top: 1.5rem; max-width: 700px;">
-                        <div class="card-icon reveal">
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-icon">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                         </div>
-                        <p class="reveal" style="font-size: 1rem; line-height: 1.6;">O Sandro, assim como muitos experts, possui <strong>centenas de horas de mentorias e aulas gravadas</strong>. Material rico que precisava ser catalogado e utilizado.</p>
-                        <div class="quote-block reveal" style="margin-top: 1rem; margin-bottom: 0;">
+                        <p style="font-size: 1rem; line-height: 1.6;">O Sandro, assim como muitos experts, possui <strong>centenas de horas de mentorias e aulas gravadas</strong>. Material rico que precisava ser catalogado e utilizado.</p>
+                        <div class="quote-block" style="margin-top: 1rem; margin-bottom: 0;">
                             <p class="quote-text" style="font-size: 0.95rem;">"Quando você parte de algo estruturado e profundo, o conteúdo curto ganha substância automaticamente."</p>
                         </div>
                     </div>
                 </div>
-                <div class="reveal" style="display: flex; justify-content: center; align-items: center;">
-                    <svg width="180" height="220" viewBox="0 0 180 220" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 20px 40px rgba(201, 169, 98, 0.2));">
-                        <!-- Book cover -->
-                        <rect x="20" y="10" width="140" height="200" rx="4" fill="#18181b" stroke="#c9a962" stroke-width="2"/>
-                        <!-- Book spine -->
-                        <rect x="20" y="10" width="25" height="200" rx="4" fill="#111113" stroke="#c9a962" stroke-width="1.5"/>
-                        <!-- Gold accent line -->
-                        <rect x="50" y="10" width="2" height="200" fill="#c9a962" opacity="0.5"/>
-                        <!-- Title area -->
-                        <rect x="60" y="50" width="90" height="60" rx="2" fill="#c9a962" opacity="0.1"/>
-                        <!-- Title lines -->
-                        <rect x="70" y="65" width="70" height="6" rx="1" fill="#c9a962" opacity="0.8"/>
-                        <rect x="70" y="78" width="50" height="6" rx="1" fill="#c9a962" opacity="0.6"/>
-                        <rect x="70" y="91" width="60" height="6" rx="1" fill="#c9a962" opacity="0.4"/>
-                        <!-- Decorative element -->
-                        <circle cx="105" cy="140" r="20" fill="none" stroke="#c9a962" stroke-width="1.5" opacity="0.4"/>
-                        <circle cx="105" cy="140" r="12" fill="#c9a962" opacity="0.2"/>
-                        <!-- Bottom accent -->
-                        <rect x="60" y="170" width="90" height="25" rx="2" fill="#c9a962" opacity="0.15"/>
-                        <rect x="75" y="180" width="60" height="4" rx="1" fill="#c9a962" opacity="0.6"/>
-                    </svg>
+                <div class="about-photo">
+                    <div class="book-illustration">
+                        <svg viewBox="0 0 180 220" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%; filter: drop-shadow(0 20px 40px rgba(201, 169, 98, 0.2));">
+                            <!-- Book cover -->
+                            <rect x="20" y="10" width="140" height="200" rx="4" fill="#18181b" stroke="#c9a962" stroke-width="2"/>
+                            <!-- Book spine -->
+                            <rect x="20" y="10" width="25" height="200" rx="4" fill="#111113" stroke="#c9a962" stroke-width="1.5"/>
+                            <!-- Gold accent line -->
+                            <rect x="50" y="10" width="2" height="200" fill="#c9a962" opacity="0.5"/>
+                            <!-- Title area -->
+                            <rect x="60" y="50" width="90" height="60" rx="2" fill="#c9a962" opacity="0.1"/>
+                            <!-- Title lines -->
+                            <rect x="70" y="65" width="70" height="6" rx="1" fill="#c9a962" opacity="0.8"/>
+                            <rect x="70" y="78" width="50" height="6" rx="1" fill="#c9a962" opacity="0.6"/>
+                            <rect x="70" y="91" width="60" height="6" rx="1" fill="#c9a962" opacity="0.4"/>
+                            <!-- Decorative element -->
+                            <circle cx="105" cy="140" r="20" fill="none" stroke="#c9a962" stroke-width="1.5" opacity="0.4"/>
+                            <circle cx="105" cy="140" r="12" fill="#c9a962" opacity="0.2"/>
+                            <!-- Bottom accent -->
+                            <rect x="60" y="170" width="90" height="25" rx="2" fill="#c9a962" opacity="0.15"/>
+                            <rect x="75" y="180" width="60" height="4" rx="1" fill="#c9a962" opacity="0.6"/>
+                        </svg>
+                    </div>
                 </div>
             </div>
         </div>
