@@ -182,6 +182,31 @@
             text-transform: uppercase; 
         }
 
+        /* SLIDE COUNTER */
+        .slide-counter {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 100;
+            color: var(--empire-text);
+            opacity: 0.4;
+            font-size: 0.75rem;
+            font-family: var(--font-body);
+            letter-spacing: 0.05em;
+            background: rgba(17, 17, 19, 0.8);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            border: 1px solid rgba(201, 169, 98, 0.15);
+            transition: opacity 0.3s ease;
+        }
+        .slide-counter:hover {
+            opacity: 0.8;
+        }
+        .slide-counter .current {
+            color: var(--empire-gold);
+            font-weight: 500;
+        }
+
         /* SLIDE COVER COM LOGO */
         .slide-cover {
             background: 
@@ -741,7 +766,7 @@
         }
 
         @media (max-width: 768px) {
-            .nav-dots, .keyboard-hint { display: none; }
+            .nav-dots, .keyboard-hint, .slide-counter { display: none; }
             .fullscreen-btn { top: 1rem; right: 1rem; padding: 0.5rem; }
             .fullscreen-btn svg { width: 16px; height: 16px; }
             .case-wrapper { grid-template-columns: 1fr; }
@@ -771,6 +796,7 @@
     <div class="progress-bar" id="progressBar"></div>
     <nav class="nav-dots" id="navDots"></nav>
     <div class="keyboard-hint">Use ↑ ↓ para navegar • F para tela cheia</div>
+    <div class="slide-counter" id="slideCounter"><span class="current">1</span> / <span class="total">34</span></div>
 
     <!-- SLIDE 1: CAPA -->
     <section class="slide slide-cover" data-slide="0">
@@ -1416,6 +1442,8 @@
             init() {
                 this.createNavDots();
                 this.setupIntersectionObserver();
+                const counter = document.getElementById('slideCounter');
+                if (counter) counter.querySelector('.total').textContent = this.totalSlides;
                 this.setupKeyboardNavigation();
                 this.setupTouchNavigation();
                 this.setupWheelNavigation();
@@ -1533,7 +1561,14 @@
             nextSlide() { if (this.currentSlide < this.totalSlides - 1) this.goToSlide(this.currentSlide + 1); }
             prevSlide() { if (this.currentSlide > 0) this.goToSlide(this.currentSlide - 1); }
             updateNavDots() { this.navDots.querySelectorAll('.nav-dot').forEach((dot, i) => dot.classList.toggle('active', i === this.currentSlide)); }
-            updateProgress() { this.progressBar.style.width = ((this.currentSlide + 1) / this.totalSlides * 100) + '%'; }
+            updateProgress() { 
+                this.progressBar.style.width = ((this.currentSlide + 1) / this.totalSlides * 100) + '%';
+                const counter = document.getElementById('slideCounter');
+                if (counter) {
+                    counter.querySelector('.current').textContent = this.currentSlide + 1;
+                    counter.querySelector('.total').textContent = this.totalSlides;
+                }
+            }
         }
         
         document.addEventListener('DOMContentLoaded', () => new SlidePresentation());
