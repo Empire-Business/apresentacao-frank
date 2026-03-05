@@ -335,6 +335,63 @@
                 grid-template-columns: 280px 1fr;
             }
         }
+
+        /* ABOUT WRAPPER - Slide 3 */
+        .about-wrapper {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: center;
+            height: calc(100vh - 200px);
+            max-height: 600px;
+        }
+        
+        @media (min-width: 900px) {
+            .about-wrapper {
+                grid-template-columns: 1.2fr 0.8fr;
+                gap: 3rem;
+            }
+        }
+        
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .about-photo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .photo-container {
+            position: relative;
+            width: min(320px, 35vh);
+            height: min(320px, 35vh);
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--empire-gold);
+            box-shadow: 0 0 50px rgba(201, 169, 98, 0.25);
+        }
+        
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        @media (max-width: 900px) {
+            .about-wrapper {
+                height: auto;
+                max-height: none;
+            }
+            .photo-container {
+                width: 200px;
+                height: 200px;
+            }
+        }
         
         .case-image-container {
             position: relative;
@@ -771,6 +828,8 @@
             .fullscreen-btn svg { width: 16px; height: 16px; }
             .case-wrapper { grid-template-columns: 1fr; }
             .case-image-container { max-width: 250px; margin: 0 auto; }
+            .about-wrapper { grid-template-columns: 1fr; height: auto; max-height: none; }
+            .photo-container { width: 180px; height: 180px; }
             .logos-grid { grid-template-columns: repeat(2, 1fr); }
             .feature-grid { grid-template-columns: 1fr; }
             .stats-grid { grid-template-columns: 1fr; }
@@ -835,24 +894,24 @@
         <div class="bg-glow"></div>
         <div class="slide-content">
             <span class="section-label reveal">Bloco 2 — Quem Somos</span>
-            <div style="display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: center;">
-                <div>
-                    <h2 class="section-title font-display reveal">A Empire Business</h2>
-                    <div class="section-text reveal">
+            <div class="about-wrapper reveal">
+                <div class="about-content">
+                    <h2 class="section-title font-display">A Empire Business</h2>
+                    <div class="section-text">
                         <p>Meu nome é <strong>Bruno</strong>, sou diretor de operações da Empire. Cuido de tudo que faz a empresa funcionar de dentro pra fora — processos, time, produto...</p>
                         <p>A <strong>Empire Business</strong> ajuda empresários e especialistas a escalarem presença digital sem abrir mão de quem eles são.</p>
                     </div>
-                    <div class="card" style="margin-top: 1.5rem; max-width: 600px;">
-                        <div class="card-icon reveal">
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-icon">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                         </div>
-                        <h3 class="card-title reveal" style="font-size: 1.1rem;">Nosso Cliente Típico</h3>
-                        <p class="card-text reveal">Alguém que <strong>domina o mercado onde atua</strong> — tem autoridade, resultado, história. Mas digitalmente, não existe. Ou existe de um jeito que não representa quem ele é de verdade.</p>
+                        <h3 class="card-title" style="font-size: 1.1rem;">Nosso Cliente Típico</h3>
+                        <p class="card-text">Alguém que <strong>domina o mercado onde atua</strong> — tem autoridade, resultado, história. Mas digitalmente, não existe. Ou existe de um jeito que não representa quem ele é de verdade.</p>
                     </div>
                 </div>
-                <div class="reveal" style="display: flex; justify-content: center;">
-                    <div style="position: relative; width: 220px; height: 220px; border-radius: 50%; overflow: hidden; border: 3px solid var(--empire-gold); box-shadow: 0 0 40px rgba(201, 169, 98, 0.3);">
-                        <img src="Imagens/perfil%20bruno.png" alt="Bruno - Diretor de Operações" style="width: 100%; height: 100%; object-fit: cover;">
+                <div class="about-photo">
+                    <div class="photo-container">
+                        <img src="Imagens/perfil%20bruno.png" alt="Bruno - Diretor de Operações">
                     </div>
                 </div>
             </div>
