@@ -3,6 +3,6 @@
   "name": "apresentacao-frank",
   "public": true,
   "github": {
-    "enabled": false
+    "enabled": true
   }
 }
