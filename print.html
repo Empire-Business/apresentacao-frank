@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empire - Apresentação (Print)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --empire-bg: #0a0a0b;
+            --empire-surface: #141416;
+            --empire-surface-2: #1c1c1f;
+            --empire-gold: #d4a574;
+            --empire-gold-light: #e8c9a0;
+            --empire-gold-dark: #b8935f;
+            --empire-text: #f5f5f0;
+            --empire-text-muted: #9ca3af;
+            --empire-border: rgba(212, 165, 116, 0.15);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        @page {
+            size: 1920px 1080px;
+            margin: 0;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--empire-bg);
+            color: var(--empire-text);
+            line-height: 1.6;
+        }
+        
+        .slide {
+            width: 1920px;
+            height: 1080px;
+            page-break-after: always;
+            page-break-inside: avoid;
+            position: relative;
+            overflow: hidden;
+            padding: 80px 120px;
+            background: var(--empire-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .slide:last-child {
+            page-break-after: auto;
+        }
+        
+        .slide-cover {
+            background: linear-gradient(135deg, var(--empire-bg) 0%, var(--empire-surface) 100%);
+            text-align: center;
+            align-items: center;
+        }
+        
+        .slide-number {
+            position: absolute;
+            bottom: 40px;
+            right: 60px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--empire-gold);
+            opacity: 0.6;
+        }
+        
+        h1 {
+            font-size: 72px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--empire-text) 0%, var(--empire-gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        h2 {
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            color: var(--empire-text);
+        }
+        
+        h3 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--empire-gold);
+        }
+        
+        h4 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--empire-text);
+        }
+        
+        p {
+            font-size: 20px;
+            color: var(--empire-text-muted);
+            margin-bottom: 20px;
+            max-width: 900px;
+        }
+        
+        .section-label {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--empire-gold);
+            padding: 8px 16px;
+            border: 1px solid var(--empire-border);
+            border-radius: 4px;
+            margin-bottom: 30px;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        
+        .card {
+            background: var(--empire-surface);
+            border: 1px solid var(--empire-border);
+            border-radius: 12px;
+            padding: 40px;
+        }
+        
+        .card-gold {
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(212, 165, 116, 0.05) 100%);
+            border: 1px solid var(--empire-gold-dark);
+        }
+        
+        .metric {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 48px;
+            font-weight: 600;
+            color: var(--empire-gold);
+            margin-bottom: 10px;
+        }
+        
+        .metric-label {
+            font-size: 16px;
+            color: var(--empire-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .quote {
+            font-size: 24px;
+            font-style: italic;
+            color: var(--empire-text);
+            border-left: 4px solid var(--empire-gold);
+            padding-left: 30px;
+            margin: 30px 0;
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        li {
+            font-size: 18px;
+            color: var(--empire-text-muted);
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--empire-gold);
+        }
+        
+        .logo {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--empire-gold);
+            margin-bottom: 40px;
+        }
+        
+        .highlight {
+            color: var(--empire-gold);
+            font-weight: 600;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .text-center p {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .problem-list li::before {
+            content: "✕";
+            color: #ef4444;
+        }
+        
+        .solution-list li::before {
+            content: "✓";
+            color: var(--empire-gold);
+        }
+        
+        /* Tool slides */
+        .tool-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--empire-gold) 0%, var(--empire-gold-dark) 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        .feature-item {
+            background: var(--empire-surface);
+            border: 1px solid var(--empire-border);
+            border-radius: 8px;
+            padding: 25px;
+        }
+        
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--empire-text);
+            margin-bottom: 10px;
+        }
+        
+        .feature-desc {
+            font-size: 15px;
+            color: var(--empire-text-muted);
+            margin: 0;
+        }
+        
+        .case-study {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .case-image {
+            width: 100%;
+            height: 400px;
+            background: var(--empire-surface-2);
+            border-radius: 12px;
+            border: 1px solid var(--empire-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--empire-text-muted);
+            font-size: 14px;
+        }
+        
+        .stats-row {
+            display: flex;
+            gap: 60px;
+            margin-top: 40px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .emoji {
+            font-style: normal;
+        }
+        
+        /* Print optimizations */
+        @media print {
+            .slide {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Slide 0: Capa -->
+<div class="slide slide-cover">
+    <div class="logo">EMPIRE BUSINESS</div>
+    <h1>Como Usamos IA para<br>Transformar a Empire</h1>
+    <p style="font-size: 24px; max-width: 700px;">De processos manuais para um sistema inteligente que produz conteúdo em escala sem perder a essência humana.</p>
+    <div class="slide-number">01 / 37</div>
+</div>
+
+<!-- Slide 1: Case de Sucesso -->
+<div class="slide">
+    <span class="section-label">Case de Sucesso</span>
+    <h2>Como construímos a Empire Business usando Inteligência Artificial</h2>
+    <p>Não só para automatizar tarefas, mas para repensar completamente como a empresa funcionava.</p>
+    <div class="slide-number">02 / 37</div>
+</div>
+
+<!-- Slide 2: Quem Somos -->
+<div class="slide">
+    <span class="section-label">Bloco 1 — Quem Somos</span>
+    <h2>A Empire Business</h2>
+    <p>Meu nome é <span class="highlight">Bruno</span>, sou diretor de operações da Empire. Cuido de tudo que faz a empresa funcionar de dentro pra fora — processos, time, produto...</p>
+    <p style="margin-top: 30px; font-size: 24px; color: var(--empire-text);">A <strong>Empire Business</strong> ajuda empresários e especialistas a escalarem presença digital sem abrir mão de quem eles são.</p>
+    <div class="slide-number">03 / 37</div>
+</div>
+
+<!-- Slide 3: O Que Fazemos -->
+<div class="slide">
+    <span class="section-label">Bloco 2 — O Que Fazemos</span>
+    <h2>Sistema de Distribuição de Conteúdo</h2>
+    <p style="font-size: 22px; margin-bottom: 40px;">Criamos um <span class="highlight">sistema completo</span> que pega a essência do especialista — seu conhecimento, história e autoridade — e transforma em <span class="highlight">conteúdo digital consistente</span>, sem que ele precise virar um personagem que não é.</p>
+    <div class="grid-3">
+        <div class="card">
+            <h4>Extraímos a Essência</h4>
+            <p style="font-size: 16px;">Capturamos o conhecimento e a experiência real da pessoa — não inventamos nada.</p>
+        </div>
+        <div class="card">
+            <h4>Estruturamos Processo</h4>
+            <p style="font-size: 16px;">Criamos sistemas e ferramentas com IA para produzir em escala sem perder identidade.</p>
+        </div>
+        <div class="card">
+            <h4>Distribuímos Certo</h4>
+            <p style="font-size: 16px;">Entregamos o conteúdo no formato certo, na hora certa, nas redes certas.</p>
+        </div>
+    </div>
+    <p style="margin-top: 40px; text-align: center; font-size: 18px;">O resultado: <span class="highlight">a pessoa continua sendo quem é</span>, mas agora com presença digital forte, autoridade construída e clientes chegando.</p>
+    <div class="slide-number">04 / 37</div>
+</div>
+
+<!-- Slide 4: Marcas Que Atendemos -->
+<div class="slide">
+    <span class="section-label">Bloco 2.1 — Quem Passou Por Aqui</span>
+    <h2 class="text-center">Marcas Que Atendemos</h2>
+    <p class="text-center">Marcas e especialistas que confiaram no nosso sistema de produção de conteúdo.</p>
+    <div class="slide-number">05 / 37</div>
+</div>
+
+<!-- Slide 5: Case Thiago -->
+<div class="slide">
+    <span class="section-label">Case de Sucesso</span>
+    <div class="grid-2">
+        <div>
+            <h3 style="margin-bottom: 20px;">Thiago Reis</h3>
+            <div class="quote">"O Thiago chegou com uma base grande — mas desengajada. Tinha crescido via tráfego pago, e os seguidores não conectavam com ele de verdade."</div>
+            <p>Fizemos posicionamento com três pilares: vendas, empreendedorismo e alta performance. Estruturamos 2-3 conteúdos por dia com consistência.</p>
+        </div>
+        <div class="card card-gold">
+            <div class="stats-row" style="justify-content: center;">
+                <div class="stat-item">
+                    <div class="metric">45 dias</div>
+                    <div class="metric-label">Para triplicar seguidores</div>
+                </div>
+                <div class="stat-item">
+                    <div class="metric">R$ 12M → R$ 60M</div>
+                    <div class="metric-label">Faturamento + escritório Berrini</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-number">06 / 37</div>
+</div>
+
+<!-- Slide 6: Case Otávio -->
+<div class="slide">
+    <span class="section-label">Case de Sucesso</span>
+    <div class="grid-2">
+        <div>
+            <h3 style="margin-bottom: 20px;">Otávio Amaral</h3>
+            <div class="quote">"O Otávio é um empresário que já era muito bem sucedido no offline e agora está multiplicando sua autoridade através da produção de conteúdo."</div>
+            <p>Com processo, consistência e posicionamento bem definido, traduzimos sua expertise offline para uma presença digital forte.</p>
+        </div>
+        <div class="card card-gold">
+            <div class="stats-row" style="justify-content: center;">
+                <div class="stat-item">
+                    <div class="metric">~80 mil</div>
+                    <div class="metric-label">Seguidores conquistados</div>
+                </div>
+            </div>
+            <p class="text-center" style="margin-top: 30px; font-style: italic;">"Parece simples. E é — quando existe processo."</p>
+        </div>
+    </div>
+    <div class="slide-number">07 / 37</div>
+</div>
+
+<!-- Slide 7: Case Henrique -->
+<div class="slide">
+    <span class="section-label">Case de Sucesso</span>
+    <div class="grid-2">
+        <div>
+            <h3 style="margin-bottom: 20px;">Henrique Carolenske</h3>
+            <div class="quote">"O Henrique chegou sem saber exatamente o que queria falar. Sabia que precisava de audiência, mas não tinha clareza de tema."</div>
+            <p>Definimos pilares: branding, criação de marca e análise de produtos. Ele executou com consistência.</p>
+            <p>A partir da audiência, lançou uma empresa de serviço de processo de criação de branding e em um ano faturou seu <span class="highlight">primeiro milhão</span>.</p>
+        </div>
+        <div class="card card-gold">
+            <div class="stats-row" style="justify-content: center;">
+                <div class="stat-item">
+                    <div class="metric">500 mil+</div>
+                    <div class="metric-label">Seguidores conquistados com consistência</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-number">08 / 37</div>
+</div>
+
+<!-- Slide 8: Estrutura Antiga -->
+<div class="slide">
+    <span class="section-label">Bloco 3 — Como Era Antes</span>
+    <h2>A Estrutura Antiga</h2>
+    <p style="font-size: 22px; margin-bottom: 50px;">A estrutura era a clássica de empresa de conteúdo: gerente, estrategistas, roteiristas, editores, social medias. Cada um fazendo um pedaço. Parecia lógico, mas era <span class="highlight">caro</span> e a qualidade <span class="highlight">abaixo do possível</span>.</p>
+    <div class="grid-2">
+        <div class="card">
+            <h4 style="color: #ef4444;"><span class="emoji">✕</span> O Problema</h4>
+            <ul class="problem-list">
+                <li>Inconsistência na qualidade</li>
+                <li>Dependência de pessoas</li>
+                <li>Difícil de escalar</li>
+                <li>Alto custo operacional</li>
+                <li>Frágil quando alguém saía</li>
+            </ul>
+        </div>
+        <div class="card card-gold">
+            <h4><span class="emoji">💡</span> A Pergunta</h4>
+            <p style="font-size: 22px; font-style: italic; color: var(--empire-text);">"E se conseguíssemos colocar esse julgamento num processo? E se a IA pudesse carregar parte desse peso?"</p>
+        </div>
+    </div>
+    <div class="slide-number">09 / 37</div>
+</div>
+
+<!-- Slide 9: A Virada -->
+<div class="slide">
+    <span class="section-label">Bloco 4 — A Virada</span>
+    <h2>O Momento da Mudança</h2>
+    <p style="font-size: 22px; margin-bottom: 40px;">Não chegamos num sistema pronto do dia pra noite. Foi tentativa e erro.</p>
+    <div class="grid-3">
+        <div class="card">
+            <h4>Começamos Simples</h4>
+            <p style="font-size: 16px;">Uma cadência de GPTs. Nada sofisticado. Pegamos frameworks que funcionavam e estruturamos para a IA replicar.</p>
+        </div>
+        <div class="card">
+            <h4>No Começo Era Ruim</h4>
+            <p style="font-size: 16px;">O conteúdo saía genérico, sem personalidade. Mas fomos ajustando...</p>
+        </div>
+        <div class="card card-gold">
+            <h4>A Descoberta</h4>
+            <p style="font-size: 16px;">O problema nunca era a IA. Era a qualidade do processo que alimentava a IA.</p>
+        </div>
+    </div>
+    <div class="quote" style="margin-top: 50px; text-align: center; border: none; font-size: 22px;">
+        "Quanto mais estruturado era o processo — quanto mais claro era o posicionamento, o tom de voz, os formatos — <span class="highlight">melhor a IA performava</span>."
+    </div>
+    <div class="slide-number">10 / 37</div>
+</div>
+
+<!-- Slide 10: Ferramenta 1 - Cami Gratuita -->
+<div class="slide">
+    <span class="section-label">Ferramenta 1</span>
+    <div class="grid-2">
+        <div>
+            <div class="tool-icon">🎯</div>
+            <h2>Cami Gratuita</h2>
+            <p style="font-size: 22px;">Criamos uma <span class="highlight">isca digital</span> que faz uma análise gratuita do Instagram das pessoas e leva para uma aplicação.</p>
+            <p>A Cami cria <span class="highlight">consciência nos leads</span> ao apontar erros que eles cometem no Instagram — reforçando a nossa marca como especialistas.</p>
+        </div>
+        <div class="case-image">[Preview da Cami Gratuita]</div>
+    </div>
+    <div class="slide-number">11 / 37</div>
+</div>
+
+<!-- Slide 11: Ferramenta 2 - Cami Paga -->
+<div class="slide">
+    <span class="section-label">Ferramenta 2</span>
+    <div class="grid-2">
+        <div>
+            <div class="tool-icon">⚡</div>
+            <h2>Cami Paga — Plataforma</h2>
+            <p style="font-size: 22px;">A Cami Paga é a <span class="highlight">evolução dos GPTs</span> que usávamos no início.</p>
+            <p>Hoje ela é a <span class="highlight">plataforma que usamos para produzir conteúdo</span> para nossos clientes — lê o branding book e desdobra conteúdo em roteiros, posts e legendas no tom de voz de cada um.</p>
+        </div>
+        <div class="case-image">[Preview da Cami Paga]</div>
+    </div>
+    <div class="slide-number">12 / 37</div>
+</div>
+
+<!-- Slide 12: Cami PRO - Seletor de Modos -->
+<div class="slide">
+    <span class="section-label">Cami PRO — Funcionalidades</span>
+    <h2>Seletor de Modos</h2>
+    <p style="font-size: 22px; margin-bottom: 50px;">Escolha qual tipo de modo usar e qual tipo de roteiro quer fazer. Total flexibilidade para criar conteúdo no formato certo.</p>
+    <div class="case-image" style="height: 500px;">[Imagem: Seletor de Modos]</div>
+    <div class="slide-number">13 / 37</div>
+</div>
+
+<!-- Slide 13: Cami PRO - Branding Book -->
+<div class="slide">
+    <span class="section-label">Cami PRO — Funcionalidades</span>
+    <h2>Branding Book Inteligente</h2>
+    <p style="font-size: 22px; margin-bottom: 50px;">O branding book fica salvo no perfil e é usado para criar todos os conteúdos no tom de voz certo, com a identidade preservada.</p>
+    <div class="case-image" style="height: 500px;">[Imagem: Branding Book]</div>
+    <div class="slide-number">14 / 37</div>
+</div>
+
+<!-- Slide 14: Cami PRO - Insights -->
+<div class="slide">
+    <span class="section-label">Cami PRO — Funcionalidades</span>
+    <h2>Insights Personalizados</h2>
+    <p style="font-size: 22px; margin-bottom: 50px;">Ao criar um roteiro, a Cami sugere insights conforme o branding. Basta escolher um para ela terminar o roteiro completo.</p>
+    <div class="case-image" style="height: 500px;">[Imagem: Insights Personalizados]</div>
+    <div class="slide-number">15 / 37</div>
+</div>
+
+<!-- Slide 15: Cami PRO - Roteiro Gerado -->
+<div class="slide">
+    <span class="section-label">Cami PRO — Resultado</span>
+    <h2>Roteiro Completo Gerado</h2>
+    <p style="font-size: 22px; margin-bottom: 50px;">Exemplo de roteiro de história feito pela Cami, pronto para gravar. Uma hora de conversa vira muitas peças prontas.</p>
+    <div class="case-image" style="height: 500px;">[Imagem: Roteiro Completo]</div>
+    <div class="slide-number">16 / 37</div>
+</div>
+
+<!-- Slide 16: Cami PRO - Mapa de Edição -->
+<div class="slide">
+    <span class="section-label">Cami PRO — Funcionalidades</span>
+    <h2>Mapa de Edição</h2>
+    <p style="font-size: 22px; margin-bottom: 50px;">Além do roteiro, a Cami dá sugestões de como editar o vídeo, num mapa de edição completo.</p>
+    <div class="case-image" style="height: 500px;">[Imagem: Mapa de Edição]</div>
+    <div class="slide-number">17 / 37</div>
+</div>
+
+<!-- Slide 17: Cami PRO - Minutagens -->
+<div class="slide">
+    <span class="section-label">Cami PRO — Nova Funcionalidade</span>
+    <h2>Minutagens para Cortes</h2>
+    <p style="font-size: 22px; margin-bottom: 50px;">O usuário sobe o <span class="highlight">link de um vídeo longo</span> ou a <span class="highlight">transcrição de um podcast</span> — e o sistema analisa tudo automaticamente.</p>
+    <div class="case-image" style="height: 500px;">[Imagem: Minutagens para Cortes]</div>
+    <div class="slide-number">18 / 37</div>
+</div>
+
+<!-- Slide 18: Minutagens - Processamento -->
+<div class="slide">
+    <span class="section-label">Minutagens — Processamento</span>
+    <h2>Análise Inteligente</h2>
+    <p style="font-size: 22px; margin-bottom: 50px;">A IA processa todo o conteúdo, identificando <span class="highlight">momentos de alta retenção</span>, <span class="highlight">ganchos virais</span> e <span class="highlight">insights valiosos</span> que podem virar cortes.</p>
+    <div class="case-image" style="height: 500px;">[Imagem: Análise Inteligente]</div>
+    <div class="slide-number">19 / 37</div>
+</div>
+
+<!-- Slide 19: Minutagens - Resultado -->
+<div class="slide">
+    <span class="section-label">Minutagens — Resultado</span>
+    <h2>Sugestões de Cortes</h2>
+    <p style="font-size: 22px; margin-bottom: 50px;">O sistema entrega <span class="highlight">minutagens precisas</span> com sugestões de cortes, contexto do momento e até legendas sugeridas.</p>
+    <div class="case-image" style="height: 500px;">[Imagem: Sugestões de Cortes]</div>
+    <div class="slide-number">20 / 37</div>
+</div>
+
+<!-- Slide 20: Ferramenta 3 - Empire Manager -->
+<div class="slide">
+    <span class="section-label">Ferramenta 3</span>
+    <div class="grid-2">
+        <div>
+            <div class="tool-icon">👥</div>
+            <h2>Empire Manager</h2>
+            <p style="font-size: 22px;">Sistema de gestão completo para acompanhar clientes, tarefas e entregáveis.</p>
+            <p>Organização de todo o fluxo de trabalho em uma única plataforma integrada.</p>
+        </div>
+        <div class="case-image">[Preview do Empire Manager]</div>
+    </div>
+    <div class="slide-number">21 / 37</div>
+</div>
+
+<!-- Slide 21: Manager - Dashboard -->
+<div class="slide">
+    <span class="section-label">Empire Manager — Dashboard</span>
+    <h2>Visão Geral de Todos os Clientes</h2>
+    <p style="font-size: 22px; margin-bottom: 50px;">Acompanhe o status de cada cliente, prazos e entregas em um único lugar.</p>
+    <div class="case-image" style="height: 500px;">[Imagem: Dashboard]</div>
+    <div class="slide-number">22 / 37</div>
+</div>
+
+<!-- Slide 22: Manager - Kanban -->
+<div class="slide">
+    <span class="section-label">Empire Manager — Kanban</span>
+    <h2>Gestão Visual de Tarefas</h2>
+    <p style="font-size: 22px; margin-bottom: 50px;">Organize o fluxo de trabalho com um sistema kanban intuitivo e eficiente.</p>
+    <div class="case-image" style="height: 500px;">[Imagem: Kanban Board]</div>
+    <div class="slide-number">23 / 37</div>
+</div>
+
+<!-- Slide 23: Ferramenta 4 - PG Aplicação -->
+<div class="slide">
+    <span class="section-label">Ferramenta 4</span>
+    <div class="grid-2">
+        <div>
+            <div class="tool-icon">📋</div>
+            <h2>PG Aplicação</h2>
+            <p style="font-size: 22px;">Sistema de aplicação inteligente que qualifica leads automaticamente.</p>
+            <p>Formulários dinâmicos que adaptam perguntas conforme as respostas, gerando um perfil completo do prospect.</p>
+        </div>
+        <div class="case-image">[Preview da PG Aplicação]</div>
+    </div>
+    <div class="slide-number">24 / 37</div>
+</div>
+
+<!-- Slide 24: PG Aplicação - Formulário -->
+<div class="slide">
+    <span class="section-label">PG Aplicação — Interface</span>
+    <h2>Formulário Inteligente</h2>
+    <p style="font-size: 22px; margin-bottom: 50px;">Experiência fluida de aplicação com perguntas contextualizadas e progresso visual.</p>
+    <div class="case-image" style="height: 500px;">[Imagem: Formulário]</div>
+    <div class="slide-number">25 / 37</div>
+</div>
+
+<!-- Slide 25: PG Aplicação - Análise -->
+<div class="slide">
+    <span class="section-label">PG Aplicação — Backend</span>
+    <h2>Análise Automática de Respostas</h2>
+    <p style="font-size: 22px; margin-bottom: 50px;">O sistema processa as respostas e gera um relatório de qualificação com pontuação e insights.</p>
+    <div class="case-image" style="height: 500px;">[Imagem: Análise]</div>
+    <div class="slide-number">26 / 37</div>
+</div>
+
+<!-- Slide 26: Ferramenta 5 - 1 Livro por Mês -->
+<div class="slide">
+    <span class="section-label">Ferramenta 5</span>
+    <div class="grid-2">
+        <div>
+            <div class="tool-icon">📚</div>
+            <h2>1 Livro por Mês</h2>
+            <p style="font-size: 22px;">Sistema de criação de livros usando IA. Transformamos conhecimento em publicações profissionais.</p>
+            <p>Do conceito ao livro finalizado em 30 dias, com processo estruturado de escrita, revisão e design.</p>
+        </div>
+        <div class="case-image">[Preview do 1 Livro por Mês]</div>
+    </div>
+    <div class="slide-number">27 / 37</div>
+</div>
+
+<!-- Slide 27: 1 Livro - Processo -->
+<div class="slide">
+    <span class="section-label">1 Livro por Mês — Processo</span>
+    <h2>Do Conceito ao Livro em 4 Semanas</h2>
+    <p style="font-size: 22px; margin-bottom: 40px;">Um sistema estruturado que transforma ideias em livros profissionais.</p>
+    <div class="grid-3">
+        <div class="card">
+            <div class="metric" style="font-size: 32px;">Semana 1</div>
+            <h4>Estrutura e Outline</h4>
+            <p style="font-size: 14px;">Definição do conceito, capítulos e arquitetura do conteúdo.</p>
+        </div>
+        <div class="card">
+            <div class="metric" style="font-size: 32px;">Semana 2-3</div>
+            <h4>Escrita com IA</h4>
+            <p style="font-size: 14px;">Produção do conteúdo usando nossos frameworks e revisão.</p>
+        </div>
+        <div class="card">
+            <div class="metric" style="font-size: 32px;">Semana 4</div>
+            <h4>Design e Publicação</h4>
+            <p style="font-size: 14px;">Capa, diagramação e preparação para publicação.</p>
+        </div>
+    </div>
+    <div class="slide-number">28 / 37</div>
+</div>
+
+<!-- Slide 28: Mapeamento de Conteúdo -->
+<div class="slide">
+    <span class="section-label">Ferramenta 6</span>
+    <div class="grid-2">
+        <div>
+            <div class="tool-icon">🗺️</div>
+            <h2>Mapeamento de Conteúdo</h2>
+            <p style="font-size: 22px;">Sistema que mapeia e organiza todo o conteúdo já produzido.</p>
+            <p>Análise de gaps, oportunidades de reaproveitamento e planejamento estratégico de novos conteúdos.</p>
+        </div>
+        <div class="case-image">[Preview do Mapeamento]</div>
+    </div>
+    <div class="slide-number">29 / 37</div>
+</div>
+
+<!-- Slide 29: Ferramenta 7 - Landing Pages -->
+<div class="slide">
+    <span class="section-label">Ferramenta 7</span>
+    <div class="grid-2">
+        <div>
+            <div class="tool-icon">🚀</div>
+            <h2>Landing Pages & Apresentações</h2>
+            <p style="font-size: 22px;">Criamos páginas de alta conversão e apresentações profissionais.</p>
+            <p>Design impecável, copy persuasiva e otimização para conversão desde o primeiro rascunho.</p>
+        </div>
+        <div class="case-image">[Preview de Landing Page]</div>
+    </div>
+    <div class="slide-number">30 / 37</div>
+</div>
+
+<!-- Slide 30: Ferramenta 8 - Análise de Página -->
+<div class="slide">
+    <span class="section-label">Ferramenta 8</span>
+    <div class="grid-2">
+        <div>
+            <div class="tool-icon">📊</div>
+            <h2>Análise na Página de Obrigado</h2>
+            <p style="font-size: 22px;">Sistema de analytics avançado para páginas de obrigado e confirmação.</p>
+            <p>Acompanhe conversões, comportamento pós-conversão e otimize a jornada do cliente.</p>
+        </div>
+        <div class="case-image">[Preview da Análise]</div>
+    </div>
+    <div class="slide-number">31 / 37</div>
+</div>
+
+<!-- Slide 31: Ferramenta 9 - Reconstrução de Páginas -->
+<div class="slide">
+    <span class="section-label">Ferramenta 9</span>
+    <div class="grid-2">
+        <div>
+            <div class="tool-icon">🔧</div>
+            <h2>Reconstrução de Páginas</h2>
+            <p style="font-size: 22px;">Análise e rebuild completo de páginas existentes.</p>
+            <p>Identificamos problemas de usabilidade, performance e conversão, entregando uma nova versão otimizada.</p>
+        </div>
+        <div class="case-image">[Preview da Reconstrução]</div>
+    </div>
+    <div class="slide-number">32 / 37</div>
+</div>
+
+<!-- Slide 32: Ferramenta 10 - Agente de Vendas -->
+<div class="slide">
+    <span class="section-label">Ferramenta 10</span>
+    <div class="grid-2">
+        <div>
+            <div class="tool-icon">🤖</div>
+            <h2>Agente de Vendas com IA</h2>
+            <p style="font-size: 22px;">IA treinada para qualificar leads e agendar reuniões.</p>
+            <p>Conversa natural, respostas personalizadas e integração com calendário para agendamento automático.</p>
+        </div>
+        <div class="case-image">[Preview do Agente]</div>
+    </div>
+    <div class="slide-number">33 / 37</div>
+</div>
+
+<!-- Slide 33: Agente - Funcionamento -->
+<div class="slide">
+    <span class="section-label">Agente de Vendas — Funcionamento</span>
+    <h2>Como o Agente Funciona</h2>
+    <p style="font-size: 22px; margin-bottom: 40px;">Um sistema completo de qualificação e agendamento automatizado.</p>
+    <div class="feature-grid">
+        <div class="feature-item">
+            <div class="feature-title">1. Recepção do Lead</div>
+            <div class="feature-desc">O agente recebe o lead e inicia uma conversa natural e contextualizada.</div>
+        </div>
+        <div class="feature-item">
+            <div class="feature-title">2. Qualificação</div>
+            <div class="feature-desc">Faz perguntas estratégicas para entender necessidades e perfil do prospect.</div>
+        </div>
+        <div class="feature-item">
+            <div class="feature-title">3. Apresentação</div>
+            <div class="feature-desc">Explica o serviço de forma personalizada baseada nas respostas.</div>
+        </div>
+        <div class="feature-item">
+            <div class="feature-title">4. Agendamento</div>
+            <div class="feature-desc">Integração com calendário para marcar reuniões em horários disponíveis.</div>
+        </div>
+    </div>
+    <div class="slide-number">34 / 37</div>
+</div>
+
+<!-- Slide 34: Resultados -->
+<div class="slide">
+    <span class="section-label">Bloco 5 — Resultados</span>
+    <h2 class="text-center">O Que Conseguimos</h2>
+    <p class="text-center" style="margin-bottom: 60px;">A transformação completa da operação Empire com IA.</p>
+    <div class="grid-3">
+        <div class="card card-gold text-center">
+            <div class="metric">10x</div>
+            <div class="metric-label">Mais Conteúdo Produzido</div>
+        </div>
+        <div class="card card-gold text-center">
+            <div class="metric">-60%</div>
+            <div class="metric-label">Custo Operacional</div>
+        </div>
+        <div class="card card-gold text-center">
+            <div class="metric">3x</div>
+            <div class="metric-label">Velocidade de Entrega</div>
+        </div>
+    </div>
+    <p class="text-center" style="margin-top: 60px; font-size: 22px; font-style: italic;">"De uma estrutura manual e frágil para um sistema robusto e escalável."</p>
+    <div class="slide-number">35 / 37</div>
+</div>
+
+<!-- Slide 35: Próximos Passos -->
+<div class="slide">
+    <span class="section-label">Bloco 6 — Próximos Passos</span>
+    <h2>E Agora?</h2>
+    <p style="font-size: 22px; margin-bottom: 50px;">O que você pode fazer para aplicar isso no seu negócio:</p>
+    <div class="grid-3">
+        <div class="card">
+            <h4><span class="emoji">1️⃣</span> Mapeie seus Processos</h4>
+            <p style="font-size: 16px;">Identifique onde há repetição e desperdício de tempo. Esses são os primeiros candidatos para automação.</p>
+        </div>
+        <div class="card">
+            <h4><span class="emoji">2️⃣</span> Comece Pequeno</h4>
+            <p style="font-size: 16px;">Não tente automatizar tudo de uma vez. Escolha um processo, refine, e depois expanda.</p>
+        </div>
+        <div class="card">
+            <h4><span class="emoji">3️⃣</span> Invista em Processos</h4>
+            <p style="font-size: 16px;">Lembre-se: a IA é só tão boa quanto o processo que alimenta ela. Estruture bem antes de escalar.</p>
+        </div>
+    </div>
+    <div class="slide-number">36 / 37</div>
+</div>
+
+<!-- Slide 36: Contato -->
+<div class="slide slide-cover">
+    <div class="logo">EMPIRE BUSINESS</div>
+    <h1 style="margin-bottom: 40px;">Vamos Conversar?</h1>
+    <p style="font-size: 24px; margin-bottom: 60px;">Se você quer aplicar esse tipo de inteligência artificial no seu negócio...</p>
+    <div class="card" style="max-width: 600px; margin: 0 auto; padding: 40px 60px;">
+        <p style="font-size: 22px; margin-bottom: 30px; text-align: center; color: var(--empire-text);">
+            <strong>Bruno</strong><br>
+            Diretor de Operações
+        </p>
+        <p style="text-align: center; font-size: 18px; margin: 0;">
+            Email: bruno@empirebusiness.com.br<br>
+            Site: empirebusiness.com.br
+        </p>
+    </div>
+    <div class="slide-number">37 / 37</div>
+</div>
+
+</body>
+</html>
